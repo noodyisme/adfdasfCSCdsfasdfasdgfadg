@@ -1,0 +1,35 @@
+{
+  "$id": "v2",
+  "$defs": {
+    "usecase": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "propertyAKey": { "type": "string" },
+        "featureXKey": { "type": "string" }
+      }
+    },
+    "defaults": {
+      "allOf": [
+        { "$ref": "usecase" },
+        { "required": [ "propertyAKey", "featureXKey"]}
+      ]
+    },
+    "features": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "featureXKey": { "type": "string" }
+      }
+    },
+    "features-required": {
+      "allOf": [
+        { "$ref": "features" },
+        { "required": [ "featureXKey" ]
+        }
+      ]
+    }
+  }
+}

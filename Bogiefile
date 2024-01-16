@@ -1,0 +1,60 @@
+# -*- mode: yaml -*-
+---
+bogie:
+  version: 0.19.3
+  name: identity-builder-config-store-client # the name of the application, microservice, etc.
+  asv: ASVIDENTITYPOLICYSERVICES # the ASV name registered in ServiceNow (the old HPSM name)
+  ba: BAIDENTITYPOLICYSERVICES
+  component: Identity Builder Policy Core
+  owner: platformers@capitalone.com # main contact person/team email address
+  team_name: Platformers # the name of the team in the TIR
+  # artemis_demo_mode: no # feature flag to disable/enable demo mode
+  artemis_enabled: no # feature flag to disable/enable Artemis
+  artemis_onboarding_enabled: no # feature flag to enable automatic Artemis onboarding
+  artemis_apptype: Application # the type of application to onboard to Artemis
+  artemis_assessment_owner: YAV815
+
+pipeline:
+  managed: yes
+  ci_server: identitypl-n1jenkins
+  flavor: library-package
+  feature_toggles:
+    gitversion_enabled: yes
+  tasks:
+    build:
+      tool: maven
+      java_version: 17
+      opts:
+      - -DskipITs=true
+      artifact:
+        repository: maven
+    code_analysis:
+      sonar:
+        goals: clean verify -DskipITs=true
+        host_url: https://sonar.cloud.capitalone.com
+        project_key: com.capitalone.identity.identitybuilder:identity-builder-config-store-client
+        codeCoverageTool: verify org.jacoco:jacoco-maven-plugin:prepare-agent
+        withQualityGateCheck: yes
+        opts:
+        - -Dsonar.profile="Sonar Way"
+        - -Dsonar.qualitygate="CI_Quality_Gate"
+        - -Dsonar.scm.disabled=true
+        - -Dsonar.jacoco.reportPaths=./target/coverage-reports/jacoco-ut.exec
+        - -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco-ut/jacoco.xml
+        - -Dsonar.junit.reportsPath=./target/surefire-reports
+    acceptance_tests:
+      qa:
+        tool: maven
+        java_version: 17
+        appEnv: dev
+        abort_after_with: success
+      dev:
+        aws_account_name: app-st-id-dev-1
+        tool: maven
+        java_version: 17
+        goals: clean integration-test -DskipUTs=true
+        withAWSCredentials: true
+        # proxy breaks connection to artifactory on build
+        withProxy: false
+    release:
+        skipTagging: false

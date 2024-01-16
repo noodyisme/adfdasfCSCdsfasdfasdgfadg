@@ -1,0 +1,1 @@
+File to simulate unrecognized item in the ConfigStore directory, which shouldn't cause an error on fetch.

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "schemaVersion": "0",
+  "policyNamespace": "tenant/lob_entry_1/policy_a",
+  "policyMajorVersion": 2,
+  "clients": [
+    {
+      "id": "clientidABC",
+      "environment": "production",
+      "effect": "ALLOW"
+    },
+    {
+      "id": "clientidXYZ",
+      "environment": "pre-production",
+      "effect": "DENY"
+    }
+  ]
+}

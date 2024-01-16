@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "type": "object",
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "policyNamespace",
+    "policyMajorVersion",
+    "clients"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "enum": [
+        "https://json-schema.org/draft/2019-09/schema"
+      ]
+    },
+    "schemaVersion": {
+      "type": "string",
+      "enum": [
+        "0"
+      ]
+    },
+    "policyNamespace": {
+      "type": "string",
+      "pattern": "^[-_a-zA-Z0-9]+/[-_a-zA-Z0-9]+/[-_a-zA-Z0-9]+$"
+    },
+    "policyMajorVersion": {
+      "type": "integer"
+    },
+    "clients": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/client-object-definition"
+      }
+    }
+  },
+  "$defs": {
+    "client-object-definition": {
+      "type": "object",
+      "required": [
+        "id",
+        "environment",
+        "effect"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "pre-production",
+            "production"
+          ]
+        },
+        "effect": {
+          "type": "string",
+          "enum": [
+            "ALLOW",
+            "DENY"
+          ]
+        }
+      }
+    }
+  }
+}

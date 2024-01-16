@@ -1,0 +1,4 @@
+{
+  "global.property": "xyz",
+  "non-overrideable-bool": false
+}

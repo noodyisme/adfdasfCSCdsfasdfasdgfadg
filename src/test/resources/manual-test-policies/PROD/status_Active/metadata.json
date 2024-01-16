@@ -1,0 +1,20 @@
+{
+  "Name": "test_Active",
+  "Description": "test",
+  "BusinessUnit": "test",
+  "Owner": "bkj915",
+  "LineOfBusiness": "test",
+  "Namespace": "test_Active.us_consumers.test",
+  "Type": "Journey",
+  "Domain": "",
+  "Permission": "IDS-ADMIN",
+  "SupportTeamEmail": "hofund@capitalone.com",
+  "ClientBusinessApplication": "BAIDENTITYPOLICYSERVICES",
+  "Tenant": "us_consumers",
+  "Author": "bkj915",
+  "Versions_Supported": [  {
+    "Version": "1.0",
+    "Status": "Active"
+  }],
+  "StorageLocation": ""
+}

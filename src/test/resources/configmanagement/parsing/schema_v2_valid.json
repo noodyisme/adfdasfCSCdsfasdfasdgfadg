@@ -1,0 +1,69 @@
+{
+  "$id": "v2",
+  "$defs": {
+    "usecase": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "customer.code": {
+          "type": "string"
+        },
+        "document.check": {
+          "type": "boolean"
+        },
+        "document.minAgeDays": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 90
+        },
+        "user.maxRiskScore": {
+          "type": "number",
+          "maximum": 0.9
+        },
+        "user.clearanceCodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dash-incredible_": {
+          "type": "string"
+        }
+      }
+    },
+    "defaults": {
+      "allOf": [
+        {
+          "$ref": "usecase"
+        },
+        {
+          "required": ["customer.code","document.check","document.minAgeDays","user.maxRiskScore","user.clearanceCodes"]
+        }
+      ]
+    },
+    "features": {
+      "$schema": "https://json-schema.org/draft/2019-09/schema",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+          "global.property": {
+            "type": "string"
+          },
+          "non-overrideable-bool": {
+            "type": "boolean"
+          }
+      }
+    },
+    "features-required": {
+      "allOf": [
+        {
+          "$ref": "features"
+        },
+        {
+          "required": ["global.property","non-overrideable-bool"]
+        }
+      ]
+    }
+  }
+}

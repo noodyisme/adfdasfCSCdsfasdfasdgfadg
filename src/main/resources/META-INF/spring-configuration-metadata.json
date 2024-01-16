@@ -1,0 +1,166 @@
+{
+  "groups": [
+    {
+      "name": "csc.s3",
+      "type": "com.capitalone.identity.identitybuilder.client.s3.S3ConfigurationProperties",
+      "description": "Properties for configuring S3"
+    },
+    {
+      "name": "csc.dynamic-updates",
+      "type": "com.capitalone.identity.identitybuilder.client.dynamic.DynamicUpdateConfigurationProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "csc.enabled",
+      "defaultValue": "true",
+      "type": "java.lang.Boolean",
+      "description": "Enable/Disable the config store client. No-op version is returned if false."
+    },
+    {
+      "name": "csc.client-environment",
+      "type": "com.capitalone.identity.identitybuilder.ClientEnvironment",
+      "sourceType": "com.capitalone.identity.identitybuilder.ClientEnvironment",
+      "description": "Required. Determines what policies are delivered per policy status flags."
+    },
+    {
+      "name": "csc.dynamic-updates.enabled",
+      "defaultValue": "true",
+      "type": "java.lang.Boolean",
+      "description": "Enable/Disable dynamic updates. No-Op version is returned if false."
+    },
+    {
+      "name": "csc.dynamic-updates.polling-interval",
+      "type": "java.time.Duration",
+      "description": "Required. Interval between dynamic updates. Must be 24hrs or less. Must be a factor of 24 hours (ok: P1D, PT2HR, PT12H, PT30M, bad: PT17H, P2D)"
+    },
+    {
+      "name": "csc.dynamic-updates.time-of-day-utc",
+      "defaultValue": "02:00:00",
+      "type": "java.time.LocalTime",
+      "description": "Time of day UTC that dynamic updates are pinned to."
+    },
+    {
+      "name": "csc.dynamic-updates.external-configuration.enabled",
+      "defaultValue": "true",
+      "type": "java.lang.Boolean",
+      "description": "Enable/Disable external configuration using Archaius for dynamic updates. polling.properties is expected at the root of the config store bucket"
+    },
+    {
+      "name": "csc.s3.bucket-name.east-region",
+      "type": "java.lang.String",
+      "description": "Required. Bucket to use when running in east-1 aws region."
+    },
+    {
+      "name": "csc.s3.bucket-name.west-region",
+      "type": "java.lang.String",
+      "description": "Required. Bucket to use when running in west-2 (or non east-1) aws region."
+    },
+    {
+      "name": "csc.dev-local.enabled",
+      "default": "false",
+      "type": "java.lang.Boolean",
+      "description": "Enables use of local aws credential profile name and local directory-based S3 mocking."
+    },
+    {
+      "name": "csc.dev-local.aws-credential-profile-name",
+      "default": "",
+      "type": "java.lang.String",
+      "description": "Required to access S3 when dev-local is enabled."
+    },
+    {
+      "name": "csc.dev-local.debug-root-directory",
+      "default": "",
+      "type": "java.lang.String",
+      "description": "Replace S3 source with this root directory."
+    },
+    {
+      "name": "csc.aws.proxy.enabled",
+      "type": "java.lang.Boolean",
+      "default": "false",
+      "description": "Initializes the AWS S3 client to use the Capital One proxy when set to true"
+    }
+  ],
+  "hints": [
+    {
+      "name": "csc.enabled",
+      "values": [
+        {
+          "value": "true",
+          "description": "CSC is enabled"
+        },
+        {
+          "value": "false",
+          "description": "Disables CSC"
+        }
+      ]
+    },
+    {
+      "name": "csc.dev-local.enabled",
+      "values": [
+        {
+          "value": "true",
+          "description": "dev-local properties are enabled"
+        },
+        {
+          "value": "false",
+          "description": "dev-local properties are disabled"
+        }
+      ]
+    },
+    {
+      "name": "csc.client-environment",
+      "values": [
+        {
+          "value": "dev",
+          "description": "Returns policies per https://confluence.kdc.capitalone.com/display/HOF/Dynamic+Loading+of+Policies"
+        },
+        {
+          "value": "qa",
+          "description": "Returns policies per https://confluence.kdc.capitalone.com/display/HOF/Dynamic+Loading+of+Policies"
+        },
+        {
+          "value": "prod",
+          "description": "Returns policies per https://confluence.kdc.capitalone.com/display/HOF/Dynamic+Loading+of+Policies"
+        }
+      ]
+    },
+    {
+      "name": "csc.dynamic-updates.enabled",
+      "values": [
+        {
+          "value": "true"
+        },
+        {
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "name": "csc.dynamic-updates.polling-interval",
+      "values": [
+        {
+          "value": "PD1D",
+          "description": "Poll every day."
+        },
+        {
+          "value": "PT12HR",
+          "description": "Poll every 12 hrs."
+        },
+        {
+          "value": "PT30M",
+          "description": "Poll every 30 minutes."
+        },
+        {
+          "value": "PT300S",
+          "description": "Poll every 5 minutes."
+        }
+      ],
+      "providers": [
+        {
+          "name": "any"
+        }
+      ]
+    }
+  ]
+}
